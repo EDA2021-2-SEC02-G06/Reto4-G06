@@ -42,7 +42,7 @@ def printMenu():
     print("***********************************************************************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
-    print("2- Cargar informacion de los aeropuertos")
+    print("2- Cargar informacion de los aeropuertos e imprimir los vertices")
     print("3- REQ1: Encontrar puntos de interconexión aerea")
     print("4- REQ2: Encontrar clusteres de trafico aereo")
     print("5- REQ3: Encontrar la ruta más corta entre ciudades")
