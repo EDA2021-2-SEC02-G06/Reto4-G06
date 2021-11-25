@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.ADT.graph import gr
+from DISClib.Utils import error
 assert cf
 
 """
@@ -39,12 +41,87 @@ los mismos.
 
 # Construccion de modelos
 
+def newAnalyzer():
+
+    try:
+
+        analyzer = {
+                    "paradas": None,
+                    "conexiones": None,
+                    "componentes": None,
+                    "caminos": None
+                    }
+        
+        analyzer["paradas"] = mp.newMap(numelements = 14000,
+                                        maptype = "PROBING",
+                                        comparefunction = compareStopIds)
+        
+        analyzer["conexiones"] = gr.newGraph(datastructure = "ADJ_LIST",
+                                            directed = True,
+                                            size = 14000,
+                                            comparefunction = compareStopIds)
+        
+        return analyzer
+    
+    except Exception as exp:
+
+        error.rearise(exp, "model:newAnalyzer")
+
 # Funciones para agregar informacion al catalogo
+
+def addStopConnection(cont, departure, destination, distance):
+
+    try:
+        origin = formatVertex(departure)
+        destiny = formatVertex(destination)
+        addStop(cont, origin)
+        addStop(cont, destiny)
+        addConnection(cont, origin, destiny, distance)
+        return cont
+    
+    except Exception as exp:
+        error.rearise(exp, "model.addStopConnection") 
+
+
 
 # Funciones para creacion de datos
 
+def addConnection(cont, origin, destiny, distance):
+
+    edge = gr.getEdge(cont["conexiones"], origin, destiny)
+    if edge is None:
+        gr.addEdge(cont["conexiones"], origin, destiny, distance)
+    return cont
+
+def addStop(cont, stopid):
+
+    try: 
+        if not gr.containsVertex(cont["conexiones"], stopid):
+            gr.insertVertex(cont["conexiones"], stopid)
+        
+        return cont
+    
+    except Exception as exp:
+        error.rearise(exp, "model:AddStop")
+
 # Funciones de consulta
 
+def formatVertex(service):
+
+    name = service 
+    return name
+    
+
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+def compareStopIds(stop, keyvaluestop):
+
+    stopcode = keyvaluestop['key']
+    if (stop == stopcode):
+        return 0
+    elif (stop > stopcode):
+        return 1
+    else:
+        return -1
 
 # Funciones de ordenamiento

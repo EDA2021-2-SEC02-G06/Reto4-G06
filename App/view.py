@@ -24,7 +24,10 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+from App import controller
 assert cf
+import threading
+from DISClib.ADT import stack
 
 
 """
@@ -48,41 +51,57 @@ def printMenu():
     print("8- REQ6 (Bono): Comparar con servicio WEB externo")
     print("0- Fin del programa")
 
-catalog = None
+airportfile = "airports_full.csv"
+routesfile = "routes_full.csv"
+citiesfile = "worldcities.csv"
+initial = None
 
 """
 Menu principal
 """
-while True:
-    printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+def thread_cycle():
+    while True:
+        printMenu()
+        inputs = input('Seleccione una opción para continuar\n')
+        if int(inputs[0]) == 1:
+            print("\nInicializando. . . . .")
+            cont = controller.init()
 
-    elif int(inputs[0]) == 2:
-        pass
-    
-    elif int(inputs[0]) == 3:
-        pass
 
-    elif int(inputs[0]) == 4:
-        pass
+        elif int(inputs[0]) == 2:
+            print("\nCargando información del transporte aereo. . . . .")
+            trey = controller.loadServices(cont, routesfile)
+            print(trey)
+        
+        elif int(inputs[0]) == 3:
+            pass
 
-    elif int(inputs[0]) == 5:
-        pass
+        elif int(inputs[0]) == 4:
+            pass
 
-    elif int(inputs[0]) == 6:
-        pass
+        elif int(inputs[0]) == 5:
+            pass
 
-    elif int(inputs[0]) == 7:
-        pass
+        elif int(inputs[0]) == 6:
+            pass
 
-    elif int(inputs[0]) == 8:
-        pass
+        elif int(inputs[0]) == 7:
+            pass
 
-    elif int(inputs[0]) == 0:
-        pass
+        elif int(inputs[0]) == 8:
+            pass
 
-    else:
-        sys.exit(0)
-sys.exit(0)
+        elif int(inputs[0]) == 0:
+            pass
+
+        else:
+            sys.exit(0)
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    threading.stack_size(67108864)  # 64MB stack
+    sys.setrecursionlimit(2 ** 20)
+    thread = threading.Thread(target=thread_cycle)
+    thread.start()
+

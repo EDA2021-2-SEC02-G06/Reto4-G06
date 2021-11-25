@@ -21,7 +21,7 @@
  """
 
 import config as cf
-import model
+from App import model
 import csv
 
 
@@ -31,7 +31,35 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
+def init():
+
+    analyzer = model.newAnalyzer()
+    return analyzer
+
 # Funciones para la carga de datos
+
+def loadServices(cont, routesfile):
+
+    routesfile = cf.data_dir + routesfile
+    input_file = csv.DictReader(open(routesfile, encoding = "utf-8"),
+                                    delimeter = ",")
+
+
+    for route in input_file:
+
+        if route is not None:
+
+            departure = route["Departure"]
+            destination = route["Destination"]
+            distance = route["distance_km"]
+            sameroute = departure == destination
+
+            if not sameroute:
+
+                model.addStopConnection(cont, departure, destination, distance)
+
+    return cont
+
 
 # Funciones de ordenamiento
 
