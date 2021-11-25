@@ -42,7 +42,7 @@ def loadServices(cont, routesfile):
 
     routesfile = cf.data_dir + routesfile
     input_file = csv.DictReader(open(routesfile, encoding = "utf-8"),
-                                    delimeter = ",")
+                                    delimiter=",")
 
 
     for route in input_file:
