@@ -85,7 +85,7 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
 
             departure = route["Departure"]
             destination = route["Destination"]
-            distance = route["distance_km"]
+            distance = float(route["distance_km"])
             sameroute = departure == destination
 
             if not sameroute:
@@ -108,7 +108,7 @@ def loadServicesNoDir(cont, routesfile):
 
             departure = route["Departure"]
             destination = route["Destination"]
-            distance = route["distance_km"]
+            distance = float(route["distance_km"])
             sameroute = departure == destination
 
             if not sameroute:
