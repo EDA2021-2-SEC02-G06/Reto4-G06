@@ -38,10 +38,14 @@ def init():
 
 # Funciones para la carga de datos
 
-def loadServices(cont, routesfile,citiesfile):
+def loadServicesDir(cont, routesfile,citiesfile, airportfile):
 
     routesfile = cf.data_dir + routesfile
-    input_file = csv.DictReader(open(routesfile, encoding = "utf-8"),
+    input_file1 = csv.DictReader(open(routesfile, encoding = "utf-8"),
+                                    delimiter=",")
+    
+    airportfile = cf.data_dir + airportfile
+    input_file2 = csv.DictReader(open(airportfile, encoding = "utf-8"),
                                     delimiter=",")
     
     citiesfile = cf.data_dir + citiesfile
@@ -66,6 +70,37 @@ def loadServices(cont, routesfile,citiesfile):
             mp.put(cont["ciudades"],citie["id"],diccionario)
 
 
+    for air in input_file2:
+
+        if air is not None:
+
+            airport = air["IATA"]
+
+            model.addStopDir(cont, airport)
+
+
+    for route in input_file1:
+
+        if route is not None:
+
+            departure = route["Departure"]
+            destination = route["Destination"]
+            distance = route["distance_km"]
+            sameroute = departure == destination
+
+            if not sameroute:
+
+                model.addConnectionDir(cont, departure, destination, distance)
+
+    
+
+    return cont
+
+def loadServicesNoDir(cont, routesfile):
+
+    routesfile = cf.data_dir + routesfile
+    input_file = csv.DictReader(open(routesfile, encoding = "utf-8"),
+                                    delimiter=",")
 
     for route in input_file:
 
@@ -78,11 +113,45 @@ def loadServices(cont, routesfile,citiesfile):
 
             if not sameroute:
 
-                model.addStopConnection(cont, departure, destination, distance)
+                model.loadServicesNoDir(cont, departure, destination, distance)
+
+    return cont     
+
+
+
+    """
+    routesfile = cf.data_dir + routesfile
+    input_file = csv.DictReader(open(routesfile, encoding = "utf-8"),
+                                    delimiter=",")
+
+
+    for route in input_file:
+
+        if route is not None:
+
+            departure = route["Departure"]
+            destination = route["Destination"]
+            distance = route["distance_km"]
+            sameroute = departure == destination
+
+
+            for route1 in input_file:
+
+                departure1 = route1["Departure"]
+                destination1 = route1["Destination"]
+                distance1 = route1["distance_km"]
+                sameroute1 = departure1 == destination1    
+
+
+                if departure == destination1:
+                    print(departure)
+                    if destination == departure1:
+                        print(destination)
+
+                        model.addStopConnection(cont, departure, destination, distance)
 
     return cont
-
-
+"""
 # Funciones de ordenamiento
 
 # Funciones de consulta sobre el catálogo

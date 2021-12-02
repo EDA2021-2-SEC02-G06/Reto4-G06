@@ -28,6 +28,7 @@ from App import controller
 assert cf
 import threading
 from DISClib.ADT import stack
+from DISClib.ADT.graph import gr
 
 
 """
@@ -70,9 +71,29 @@ def thread_cycle():
 
         elif int(inputs[0]) == 2:
             print("\nCargando información del transporte aereo. . . . .")
-            trey = controller.loadServices(cont, routesfile, citiesfile)
-            grafo = trey["conexiones"]
-            print(grafo["vertices"])
+            trey = controller.loadServicesDir(cont, routesfile,citiesfile, airportfile)
+            treo = controller.loadServicesNoDir(cont, routesfile)
+            graf_dir = treo["conexiones_dir"]
+            graf_nodir = trey["conexiones_nodir"]
+            tamaño_dir = gr.numVertices(graf_dir)
+            tamaño_nodir = gr.numVertices(graf_nodir)
+            lista_dir = graf_dir["vertices"]
+            lista_nodir = graf_nodir["vertices"]
+            print("---------------------------------------------------------------")
+            print("Información del digrafo:")
+            print("El numero de aeropuertos en el grafo dirigido es de: " + str(tamaño_dir))
+            print("El numero total de rutas aereas son: " + str(gr.numEdges(graf_dir)))
+            print("primer aeropuerto cargado")
+            print("----------------------------------------------------------------")
+            print("Información del grafo no dirigido:")
+            print("El numero de aeropuertos en el grafo no dirigido es de: " + str(tamaño_nodir))
+            print("El numero de rutas aereas son: " + str(gr.numEdges(graf_nodir)))
+            print("primer aeropuerto cargado")
+            print("-----------------------------------------------------------------")
+            print("Información ciudades:")
+            print("total ciudades")
+            print("ultimaciudad")
+
         
         elif int(inputs[0]) == 3:
             pass

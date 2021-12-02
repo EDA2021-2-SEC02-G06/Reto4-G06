@@ -48,17 +48,21 @@ def newAnalyzer():
         analyzer = {
                     "paradas": None,
                     "conexiones": None,
-                    "componentes": None,
-                    "caminos": None
+                    "conexiones_nodir": None
                     }
         
         analyzer["paradas"] = mp.newMap(numelements = 14000,
                                         maptype = "PROBING",
                                         comparefunction = compareStopIds)
         
-        analyzer["conexiones"] = gr.newGraph(datastructure = "ADJ_LIST",
+        analyzer["conexiones_dir"] = gr.newGraph(datastructure = "ADJ_LIST",
                                             directed = True,
-                                            size = 14000,
+                                            size = 10000,
+                                            comparefunction = compareStopIds)
+        
+        analyzer["conexiones_nodir"] = gr.newGraph(datastructure = "ADJ_LIST",
+                                            directed = False,
+                                            size = 500,
                                             comparefunction = compareStopIds)
         analyzer["ciudades"] = mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
         return analyzer
@@ -69,14 +73,32 @@ def newAnalyzer():
 
 # Funciones para agregar informacion al catalogo
 
+def addStopDir(cont, airport):
+
+    try: 
+        if not gr.containsVertex(cont["conexiones_dir"], airport):
+            gr.insertVertex(cont["conexiones_dir"], airport)
+        
+        return cont
+    
+    except Exception as exp:
+        error.rearise(exp, "model:AddStop")
+
+def addConnectionDir(cont, departure, destination, distance):
+
+    edge = gr.getEdge(cont["conexiones_dir"], departure, destination)
+    if edge is None:
+        gr.addEdge(cont["conexiones_dir"], departure, destination, distance)
+
+    return cont
+
 def addStopConnection(cont, departure, destination, distance):
 
     try:
-        origin = formatVertex(departure)
-        destiny = formatVertex(destination)
-        addStop(cont, origin)
-        addStop(cont, destiny)
-        addConnection(cont, origin, destiny, distance)
+
+        addStop(cont, departure)
+        addStop(cont, destination)
+        addConnection(cont, departure, destination, distance)
         return cont
     
     except Exception as exp:
@@ -86,18 +108,39 @@ def addStopConnection(cont, departure, destination, distance):
 
 # Funciones para creacion de datos
 
+def loadServicesNoDir(cont, departure, destination, distance):
+
+    edge = gr.getEdge(cont["conexiones_dir"], departure, destination)
+
+    edge1 = gr.getEdge(cont["conexiones_dir"], destination, departure)  
+
+    if edge is not None and edge1 is not None:
+
+        if not gr.containsVertex(cont["conexiones_nodir"], departure):
+            gr.insertVertex(cont["conexiones_nodir"], departure)
+
+        if not gr.containsVertex(cont["conexiones_nodir"], destination):
+            gr.insertVertex(cont["conexiones_nodir"], destination)
+
+        
+        gr.addEdge(cont["conexiones_nodir"], departure, destination, distance)
+
+    return cont
+
+
+
 def addConnection(cont, origin, destiny, distance):
 
-    edge = gr.getEdge(cont["conexiones"], origin, destiny)
+    edge = gr.getEdge(cont["conexiones_nodir"], origin, destiny)
     if edge is None:
-        gr.addEdge(cont["conexiones"], origin, destiny, distance)
+        gr.addEdge(cont["conexiones_nodir"], origin, destiny, distance)
     return cont
 
 def addStop(cont, stopid):
 
     try: 
-        if not gr.containsVertex(cont["conexiones"], stopid):
-            gr.insertVertex(cont["conexiones"], stopid)
+        if not gr.containsVertex(cont["conexiones_nodir"], stopid):
+            gr.insertVertex(cont["conexiones_nodir"], stopid)
         
         return cont
     
