@@ -70,7 +70,7 @@ def thread_cycle():
 
         elif int(inputs[0]) == 2:
             print("\nCargando información del transporte aereo. . . . .")
-            trey = controller.loadServices(cont, routesfile)
+            trey = controller.loadServices(cont, routesfile, citiesfile)
             grafo = trey["conexiones"]
             print(grafo["vertices"])
         
