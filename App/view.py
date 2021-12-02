@@ -102,7 +102,11 @@ def thread_cycle():
             pass
 
         elif int(inputs[0]) == 5:
-            pass
+            origen = input("Ingrese la ciudad de origen: ")
+            destino = input("Ingrese la ciudad de destino: ")
+            camino = controller.CaminoCortoCiudades(origen, destino, graf_dir)
+            print(camino)
+
 
         elif int(inputs[0]) == 6:
             pass

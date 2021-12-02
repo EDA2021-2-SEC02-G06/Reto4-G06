@@ -24,7 +24,7 @@
  * Dario Correal - Version inicial
  """
 
-
+from DISClib.Algorithms.Graphs import dijsktra as dj
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -168,3 +168,88 @@ def compareStopIds(stop, keyvaluestop):
         return -1
 
 # Funciones de ordenamiento
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def CaminoCortoCiudades(origen, destino, graf_dir):
+
+    search = dj.Dijkstra(graf_dir, origen)
+    path = dj.pathTo(search, destino)
+
+    return path
