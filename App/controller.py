@@ -52,24 +52,27 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     citiesfile = cf.data_dir + citiesfile
     file_cities = csv.DictReader(open(citiesfile, encoding = "utf-8"),
                                     delimiter=",")
-    
-    for airport in input_file2:
 
-        if airport is not None and not(mp.contains(cont["airport"],airport["Name"])):
+    input_file3 = csv.DictReader(open(airportfile, encoding = "utf-8"),
+                                    delimiter=",")
+    
+    for airport in input_file3:
+
+        if airport is not None and not(mp.contains(cont["airport"],airport["City"])):
 
             lista = lt.newList(datastructure="ARRAY_LIST")
-            diccionario = {"nombre":airport["Name"],
+            diccionario = {"nombre":airport["City"],
                             "ciudad":airport["City"],
                             "pais":airport["Country"],
                             "IATA":airport["IATA"],
                             "latitud":airport["Latitude"],
                             "longitud":airport["Longitude"],
                         }
-            lt.addLast(lista,diccionario)            
-            mp.put(cont["airport"],airport["Name"],lista)
+            lt.addLast(lista, diccionario)            
+            mp.put(cont["airport"],airport["City"],lista)
         else:
 
-            a = mp.get(cont["airport"],airport["Name"])
+            a = mp.get(cont["airport"],airport["City"])
             lista1 = me.getValue(a)
             diccionario = {"nombre":airport["Name"],
                             "ciudad":airport["City"],
@@ -78,8 +81,8 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
                             "latitud":airport["Latitude"],
                             "longitud":airport["Longitude"],
                         }
-            lista1 = lt.addLast(diccionario)
-            mp.put(cont["airport"],airport["Name"],lista1)
+            lt.addLast(lista1, diccionario)
+            mp.put(cont["airport"],airport["City"], lista1)
     
     for citie in file_cities:
 

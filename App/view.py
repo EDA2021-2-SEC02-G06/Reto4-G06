@@ -104,25 +104,46 @@ def thread_cycle():
             pass
 
         elif int(inputs[0]) == 5:
-            origen = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de origen: ")
-            destino = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de destino: ")
+            ciudad_origen = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de origen: ")
+            ciudad_destino = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de destino: ")
 
-            """
-            ciudades = cont["ciudadesa"]
+            
+            ciudades = cont["airport"]
             valor_ciudad_origen = None
 
             if mp.contains(ciudades, ciudad_origen):
                 valor_ciudad_origen = mp.get(ciudades, ciudad_origen)["value"]
 
             print("Aeropuertos disponibles en ciudad origen: ")
+            
             for elemento in lt.iterator(valor_ciudad_origen):
 
-                print(elemento[""])
+                print(elemento["IATA"])
+                
             
-            print(valor_ciudad_origen)
-            """
+            origen = input("\nEscoja y escriba el aeropuerto de partida: ")
+
+            valor_ciudad_destino = None
+
+            if mp.contains(ciudades, ciudad_destino):
+                valor_ciudad_destino = mp.get(ciudades, ciudad_destino)["value"]
+
+            print("-----------------------------------------------------------------")
+            print("Aeropuertos disponibles en ciudad llegada: ")
+            
+            for elemento in lt.iterator(valor_ciudad_destino):
+
+                print(elemento["IATA"])
+                
+            
+            destino = input("\nEscoja y escriba el aeropuerto de llegada: ")
+
+            
             camino = controller.CaminoCortoCiudades(origen, destino, graf_dir)
-            print(camino)
+            if camino == None:
+                print("No hay ruta que lo conecte")
+            else:
+                print(camino)
 
 
         elif int(inputs[0]) == 6:
