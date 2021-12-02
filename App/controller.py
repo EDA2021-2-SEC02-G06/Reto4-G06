@@ -24,6 +24,7 @@ import config as cf
 from App import model
 import csv
 from DISClib.ADT import map as mp
+from DISClib.ADT import list as lt
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -55,6 +56,7 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     for citie in file_cities:
 
         if citie is not None:
+            lista = lt.newList
             diccionario = {"nombre":citie["city_ascii"],
                             "latitud":citie["lat"],
                             "longitud":citie["lng"],
