@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+#from DISClib.ADT.indexminpq import contains
 import config as cf
 import sys
 import controller
@@ -29,6 +30,7 @@ assert cf
 import threading
 from DISClib.ADT import stack
 from DISClib.ADT.graph import gr
+from DISClib.ADT import map as mp
 
 
 """
@@ -102,9 +104,23 @@ def thread_cycle():
             pass
 
         elif int(inputs[0]) == 5:
-            ciudad_origen = input("Ingrese la ciudad de origen: ")
-            ciudad_destino = input("Ingrese la ciudad de destino: ")
+            origen = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de origen: ")
+            destino = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de destino: ")
+
+            """
+            ciudades = cont["ciudadesa"]
+            valor_ciudad_origen = None
+
+            if mp.contains(ciudades, ciudad_origen):
+                valor_ciudad_origen = mp.get(ciudades, ciudad_origen)["value"]
+
+            print("Aeropuertos disponibles en ciudad origen: ")
+            for elemento in lt.iterator(valor_ciudad_origen):
+
+                print(elemento[""])
             
+            print(valor_ciudad_origen)
+            """
             camino = controller.CaminoCortoCiudades(origen, destino, graf_dir)
             print(camino)
 
