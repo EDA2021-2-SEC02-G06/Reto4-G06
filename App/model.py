@@ -65,6 +65,8 @@ def newAnalyzer():
                                             size = 500,
                                             comparefunction = compareStopIds)
         analyzer["ciudades"] = mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
+
+        analyzer["airport"] = mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
         return analyzer
     
     except Exception as exp:

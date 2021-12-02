@@ -53,6 +53,34 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     file_cities = csv.DictReader(open(citiesfile, encoding = "utf-8"),
                                     delimiter=",")
     
+    for airport in input_file2:
+
+        if airport is not None and not(mp.contains(cont["airport"],airport["Name"])):
+
+            lista = lt.newList(datastructure="ARRAY_LIST")
+            diccionario = {"nombre":airport["Name"],
+                            "ciudad":airport["City"],
+                            "pais":airport["Country"],
+                            "IATA":airport["IATA"],
+                            "latitud":airport["Latitude"],
+                            "longitud":airport["Longitude"],
+                        }
+            lt.addLast(lista,diccionario)            
+            mp.put(cont["airport"],airport["Name"],lista)
+        else:
+
+            a = mp.get(cont["airport"],airport["Name"])
+            lista1 = me.getValue(a)
+            diccionario = {"nombre":airport["Name"],
+                            "ciudad":airport["City"],
+                            "pais":airport["Country"],
+                            "IATA":airport["IATA"],
+                            "latitud":airport["Latitude"],
+                            "longitud":airport["Longitude"],
+                        }
+            lista1 = lt.addLast(diccionario)
+            mp.put(cont["airport"],airport["Name"],lista1)
+    
     for citie in file_cities:
 
         if citie is not None and not(mp.contains(citie["city_ascii"])):
