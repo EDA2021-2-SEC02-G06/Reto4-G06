@@ -71,7 +71,7 @@ def thread_cycle():
 
         elif int(inputs[0]) == 2:
             print("\nCargando información del transporte aereo. . . . .")
-            trey = controller.loadServicesDir(cont, routesfile, airportfile)
+            trey = controller.loadServicesDir(cont, routesfile,citiesfile, airportfile)
             treo = controller.loadServicesNoDir(cont, routesfile)
             graf_dir = treo["conexiones_dir"]
             graf_nodir = trey["conexiones_nodir"]

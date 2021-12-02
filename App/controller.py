@@ -23,7 +23,7 @@
 import config as cf
 from App import model
 import csv
-
+from DISClib.ADT import map as mp
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -38,7 +38,7 @@ def init():
 
 # Funciones para la carga de datos
 
-def loadServicesDir(cont, routesfile, airportfile):
+def loadServicesDir(cont, routesfile,citiesfile, airportfile):
 
     routesfile = cf.data_dir + routesfile
     input_file1 = csv.DictReader(open(routesfile, encoding = "utf-8"),
@@ -47,6 +47,28 @@ def loadServicesDir(cont, routesfile, airportfile):
     airportfile = cf.data_dir + airportfile
     input_file2 = csv.DictReader(open(airportfile, encoding = "utf-8"),
                                     delimiter=",")
+    
+    citiesfile = cf.data_dir + citiesfile
+    file_cities = csv.DictReader(open(citiesfile, encoding = "utf-8"),
+                                    delimiter=",")
+    
+    for citie in file_cities:
+
+        if citie is not None:
+            diccionario = {"nombre":citie["city_ascii"],
+                            "latitud":citie["lat"],
+                            "longitud":citie["lng"],
+                            "pais":citie["country"],
+                            "iso2":citie["iso2"],
+                            "iso3":citie["iso3"],
+                            "admin":citie["admin_name"],
+                            "capital":citie["capital"],
+                            "population":citie["population"],
+                            "id":citie["id"]
+            }
+            
+            mp.put(cont["ciudades"],citie["id"],diccionario)
+
 
     for air in input_file2:
 
