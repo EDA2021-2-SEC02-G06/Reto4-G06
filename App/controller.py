@@ -55,7 +55,7 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     
     for citie in file_cities:
 
-        if citie is not None and not(mp.contains(citie["city_ascii"])):
+        if citie is not None and not(mp.contains(cont["ciudades"], citie["city_ascii"])):
 
             lista = lt.newList(datastructure="ARRAY_LIST")
             diccionario = {"nombre":citie["city_ascii"],
@@ -86,7 +86,7 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
                             "population":citie["population"],
                             "id":citie["id"]
             }
-            lista1 = lt.addLast(diccionario)
+            lt.addLast(lista1, diccionario)
             mp.put(cont["ciudades"],citie["city_ascii"],lista1)
             
 
