@@ -25,7 +25,7 @@ from App import model
 import csv
 from DISClib.ADT import map as mp
 from DISClib.ADT import list as lt
-
+from DISClib.DataStructures import mapentry as me
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
@@ -55,8 +55,9 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     
     for citie in file_cities:
 
-        if citie is not None:
-            lista = lt.newList
+        if citie is not None and not(mp.contains(citie["city_ascii"])):
+
+            lista = lt.newList(datastructure="ARRAY_LIST")
             diccionario = {"nombre":citie["city_ascii"],
                             "latitud":citie["lat"],
                             "longitud":citie["lng"],
@@ -68,8 +69,26 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
                             "population":citie["population"],
                             "id":citie["id"]
             }
+            lt.addLast(lista,diccionario)            
+            mp.put(cont["ciudades"],citie["city_ascii"],lista)
+        else:
+
+            a = mp.get(cont["ciudades"],citie["city_ascii"])
+            lista1 = me.getValue(a)
+            diccionario = {"nombre":citie["city_ascii"],
+                            "latitud":citie["lat"],
+                            "longitud":citie["lng"],
+                            "pais":citie["country"],
+                            "iso2":citie["iso2"],
+                            "iso3":citie["iso3"],
+                            "admin":citie["admin_name"],
+                            "capital":citie["capital"],
+                            "population":citie["population"],
+                            "id":citie["id"]
+            }
+            lista1 = lt.addLast(diccionario)
+            mp.put(cont["ciudades"],citie["city_ascii"],lista1)
             
-            mp.put(cont["ciudades"],citie["id"],diccionario)
 
 
     for air in input_file2:
