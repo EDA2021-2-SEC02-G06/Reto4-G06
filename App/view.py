@@ -104,8 +104,8 @@ def thread_cycle():
             pass
 
         elif int(inputs[0]) == 5:
-            ciudad_origen = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de origen: ")
-            ciudad_destino = input("Ingrese la ciudad (siglas del aeropuerto por ahora) de destino: ")
+            ciudad_origen = input("Ingrese la ciudad de origen: ")
+            ciudad_destino = input("Ingrese la ciudad de destino: ")
 
             
             ciudades = cont["airport"]
