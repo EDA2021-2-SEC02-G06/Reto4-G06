@@ -33,7 +33,8 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.ADT.graph import gr
 from DISClib.Utils import error
 from DISClib.Algorithms.Graphs import prim as pr 
-from DISClib.Algorithms.Graphs import bfs as bfs 
+from DISClib.Algorithms.Graphs import bfs as bf 
+from DISClib.Algorithms.Sorting import mergesort as ms
 import math as mt
 assert cf
 
@@ -271,6 +272,28 @@ def compareStopIds(stop, keyvaluestop):
 
 
 
+def CuantasConexionesTiene(graf_dir):
+
+    lista_vert = gr.vertices(graf_dir)
+    lista_d = lt.newList("ARRAY_LIST")
+
+    for elemento in lt.iterator(lista_vert):
+
+        num = gr.degree(graf_dir, elemento)
+
+        dicit = {"aero": elemento, "conexiones": num}
+
+        lt.addLast(lista_d, dicit)
+    
+    r = ms.sort(lista_d, CmpNum)
+
+    return lista_d
+
+    
+def CmpNum(el1, el2):
+
+    return el1["conexiones"] > el2["conexiones"]
+
 
 
 
@@ -383,7 +406,22 @@ def DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final
 
     return dist
 
-def MstPrim(graf_dir, ciudad_org):
+def MstPrim(graf_nodir, ciudad_org, hash_ae):
 
-    mst = pr.PrimMST(graf_dir)
+    Ae = mp.get(hash_ae, ciudad_org)["value"]
+    ly = ""
+    
+    for element in lt.iterator(Ae):
+        
+        ly = element["IATA"]
+    print(ly)
+    mst = pr.PrimMST(graf_nodir)
+
+    return mst
+
+def SaberConectados(graf_dir, inicio):
+
+    dij = dj.Dijkstra(graf_dir, inicio)
+
+    return dij
 

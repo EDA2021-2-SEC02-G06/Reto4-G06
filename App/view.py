@@ -99,12 +99,41 @@ def thread_cycle():
 
         
         elif int(inputs[0]) == 3:
-            pass
+            
+            conectados = controller.CuantasConexionesTiene(graf_dir)
+
+            hash_air = cont["airport"]
+
+            print("Los 5 aeropuertos más interconectados son:")
+            print("")
+
+            m = 0
+            lista_ha = mp.keySet(hash_air)
+            for ele in lt.iterator(conectados):
+                
+                
+                if m < 5:
+                
+                    for j in lt.iterator(lista_ha):
+                        
+                        y = mp.get(hash_air, j)["value"]
+
+                        for x in lt.iterator(y):
+
+                            
+                            if x["IATA"] == ele["aero"]:
+
+
+                                print(x["IATA"] + "  " + x["nombre"] + "  " + x["ciudad"] + "  " + x["pais"] + "  " + "Conexiones: " + str(ele["conexiones"]))
+                                print("---------------------------------------------------------------------------------")
+
+                                m += 1
 
         elif int(inputs[0]) == 4:
             cod1 = input("Ingrese el IATA 1: ")
             cod2 = input("ingrese el IATA 2: ")
-            
+
+
 
         elif int(inputs[0]) == 5:
             ciudad_origen = input("Ingrese la ciudad de origen: ")

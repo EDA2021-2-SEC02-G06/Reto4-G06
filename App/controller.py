@@ -322,7 +322,9 @@ def loadServicesNoDir(cont, routesfile):
 
 
 
+def CuantasConexionesTiene(graf_dir):
 
+    return model.CuantasConexionesTiene(graf_dir)
 
 
 def CaminoCortoCiudades(origen, destino, graf_dir):
@@ -338,10 +340,15 @@ def EncontrarAeropuertoReg(destino_final, hash_aero):
 
     return model.EncontrarAeropuertoReg(destino_final, hash_aero)
 
-def MstPrim(graf_dir, ciudad_org):
+def MstPrim(graf_nodir, ciudad_org, hash_ae):
 
-    return model.MstPrim(graf_dir, ciudad_org)
+    return model.MstPrim(graf_nodir, ciudad_org, hash_ae)
 
 def DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero):
 
     return model.DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero)
+
+def SaberConectados(graf_dir, inicio):
+
+    return model.SaberConectados(graf_dir, inicio)
+
