@@ -31,6 +31,7 @@ import threading
 from DISClib.ADT import stack
 from DISClib.ADT.graph import gr
 from DISClib.ADT import map as mp
+from geopy import distance 
 
 
 """
@@ -54,9 +55,9 @@ def printMenu():
     print("8- REQ6 (Bono): Comparar con servicio WEB externo")
     print("0- Fin del programa")
 
-airportfile = "airports_full.csv"
-routesfile = "routes_full.csv"
-citiesfile = "worldcities.csv"
+airportfile = "airports-utf8-small.csv"
+routesfile = "routes-utf8-small.csv"
+citiesfile = "worldcities-utf8.csv"
 initial = None
 
 """
@@ -108,46 +109,102 @@ def thread_cycle():
             ciudad_destino = input("Ingrese la ciudad de destino: ")
 
             
-            ciudades = cont["airport"]
+            ciudades = cont["ciudades"]
             valor_ciudad_origen = None
 
             if mp.contains(ciudades, ciudad_origen):
                 valor_ciudad_origen = mp.get(ciudades, ciudad_origen)["value"]
 
-            print("Aeropuertos disponibles en ciudad origen: ")
+            print("Las ciudades disponibles son: ")
             
+            s = 1
+            lista_city = lt.newList("ARRAY_LIST")
             for elemento in lt.iterator(valor_ciudad_origen):
 
-                print(elemento["IATA"])
-                
+                print(str(s) + " -- " + elemento["nombre"] + " " + elemento["pais"] + " " + elemento["admin"] + " " + " latitud: " +  elemento["latitud"] + " " + "longitud: " + elemento["longitud"])
+                dic = {"nom": elemento["nombre"], "lat": elemento["latitud"], "long": elemento["longitud"]}
+                lt.addLast(lista_city, dic)
+                s += 1
             
-            origen = input("\nEscoja y escriba el aeropuerto de partida: ")
+            origen = int(input("\nEscoja y escriba el numero de la ciudad de partida: "))
+            origen = origen - 1
 
+            k = 0
+            for city in lt.iterator(lista_city):
+                if k == origen:
+                    origen_final = city
+                
+                k += 1
+
+            
             valor_ciudad_destino = None
 
             if mp.contains(ciudades, ciudad_destino):
                 valor_ciudad_destino = mp.get(ciudades, ciudad_destino)["value"]
 
             print("-----------------------------------------------------------------")
-            print("Aeropuertos disponibles en ciudad llegada: ")
+            print("Ciudades de llegada disponibles: ")
             
+            ss = 1
+            lista_city2 = lt.newList("ARRAY_LIST")
             for elemento in lt.iterator(valor_ciudad_destino):
 
-                print(elemento["IATA"])
-                
+                print(str(ss) + " -- " + elemento["nombre"] + " " + elemento["pais"] + " " + elemento["admin"] + " " + " latitud: " +  elemento["latitud"] + " " + "longitud: " + elemento["longitud"])
+                dic = {"nom": elemento["nombre"], "lat": elemento["latitud"], "long": elemento["longitud"]}
+                lt.addLast(lista_city2, dic)
+                ss += 1
             
-            destino = input("\nEscoja y escriba el aeropuerto de llegada: ")
+            destino = int(input("\nEscoja y escriba el numero de la ciudad de partida: "))
 
-            
-            camino = controller.CaminoCortoCiudades(origen, destino, graf_dir)
+            destino = destino - 1
+
+            kk = 0
+            for city in lt.iterator(lista_city2):
+                if kk == destino:
+                    destino_final = city
+                
+                kk += 1 
+
+            hash_aero = cont["airport"]
+
+            aeropuerto_ida = controller.EncontrarAeropuertoIda(origen_final, hash_aero)
+            aeropuerto_reg = controller.EncontrarAeropuertoReg(destino_final, hash_aero)
+            print(aeropuerto_ida)
+            print(aeropuerto_reg)
+
+            camino = controller.CaminoCortoCiudades(aeropuerto_ida, aeropuerto_reg, graf_dir)
             if camino == None:
                 print("No hay ruta que lo conecte")
             else:
-                print(camino)
+                print("El aeropuerto de salida es: " + aeropuerto_ida)
+                print("El aeropuerto de llegada es: " + aeropuerto_reg)
+                print("")
+                print("********************************************")
+                print("")
+                print("La ruta es: ")
+                for ruta in lt.iterator(camino):
+
+                    print("Air Salida: " + ruta["vertexA"] + "  --->  " + "Air Llegada: " + ruta["vertexB"] + "Distancia: " + ruta["weight"])
+                    print("--------------------------------------------------------------------------------------")
+                print("")
+                print("********************************************")
+                print("")
+                print("La distancia total es: ")
+                hash_ciudad = cont["ciudades"]
+                distancia_t = controller.DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero)
+
+
+
 
 
         elif int(inputs[0]) == 6:
-            pass
+            
+            ciudad_org = input("Cual es la ciudad de origen: ")
+            millas = int(input("Cuantas millas posee: "))
+
+            distancia_millas = millas * 1.6
+
+            mst = controller.MstPrim(graf_dir, ciudad_org)
 
         elif int(inputs[0]) == 7:
             pass

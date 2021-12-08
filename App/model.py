@@ -32,6 +32,7 @@ from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.ADT.graph import gr
 from DISClib.Utils import error
+from DISClib.Algorithms.Graphs import prim as pr 
 assert cf
 
 """
@@ -249,9 +250,122 @@ def compareStopIds(stop, keyvaluestop):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def CaminoCortoCiudades(origen, destino, graf_dir):
 
     search = dj.Dijkstra(graf_dir, origen)
     path = dj.pathTo(search, destino)
 
     return path
+
+def EncontrarAeropuertoIda(origen_final, hash_aero):
+
+    lista_for = mp.keySet(hash_aero)
+
+    lim_min_lat = float(origen_final["lat"]) - 0.1
+    lim_max_lat = float(origen_final["lat"]) + 0.1
+    lim_max_long = float(origen_final["long"]) + 0.1
+    lim_min_long = float(origen_final["long"]) - 0.1
+
+    aeropuerto = ""
+
+    while aeropuerto == "":
+
+        for element in lt.iterator(lista_for):
+                
+            o = mp.get(hash_aero, element)["value"]
+            for e in lt.iterator(o):
+
+                if float(e["latitud"]) <= lim_max_lat and float(e["latitud"]) >= lim_min_lat and float(e["longitud"]) <= lim_max_long and float(e["longitud"]) >= lim_min_long:
+                    print(1)
+                    aeropuerto = e["IATA"] 
+
+        lim_min_lat =  lim_min_lat - 0.1
+        lim_max_lat = lim_max_lat + 0.1
+        lim_max_long = lim_max_long + 0.1
+        lim_min_long = lim_min_long - 0.1
+
+    return aeropuerto
+
+def EncontrarAeropuertoReg(destino_final, hash_aero):
+
+    lista_for = mp.keySet(hash_aero)
+
+    lim_min_lat = float(destino_final["lat"]) - 0.1
+    lim_max_lat = float(destino_final["lat"]) + 0.1
+    lim_max_long = float(destino_final["long"]) + 0.1
+    lim_min_long = float(destino_final["long"]) - 0.1
+
+    aeropuerto = ""
+
+    while aeropuerto == "":
+
+        for element in lt.iterator(lista_for):
+                
+            o = mp.get(hash_aero, element)["value"]
+            for e in lt.iterator(o):
+
+                if float(e["latitud"]) <= lim_max_lat and float(e["latitud"]) >= lim_min_lat and float(e["longitud"]) <= lim_max_long and float(e["longitud"]) >= lim_min_long:
+                    print(1)
+                    aeropuerto = e["IATA"] 
+
+        lim_min_lat =  lim_min_lat - 0.1
+        lim_max_lat = lim_max_lat + 0.1
+        lim_max_long = lim_max_long + 0.1
+        lim_min_long = lim_min_long - 0.1
+
+    return aeropuerto
+
+def DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero):
+
+    lat_co = origen_final["lat"]
+    long_co = origen_final["long"]
+    lat_cd =  destino_final["lat"]
+    long_cd =  destino_final["long"]
+
+    o = mp.get(hash_aero, origen_final["nom"])["value"]
+    
+    lat_ao = 0
+    long_ao = 0
+    lat_ad =  0
+    long_ad =  0
+
+    for e in lt.iterator(o):
+
+        if e["IATA"] == aeropuerto_ida:
+
+            lat_ao = float(e["latitud"])
+            long_ao = float(e["longitud"])
+        
+        elif e["IATA"] == aeropuerto_reg:
+
+            lat_ao = float(e["latitud"])
+            long_ao = float(e["longitud"])
+
+    a = 0
+
+def MstPrim(graf_dir, ciudad_org):
+
+    pr.PrimMST
