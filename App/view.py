@@ -102,7 +102,9 @@ def thread_cycle():
             pass
 
         elif int(inputs[0]) == 4:
-            pass
+            cod1 = input("Ingrese el IATA 1: ")
+            cod2 = input("ingrese el IATA 2: ")
+            
 
         elif int(inputs[0]) == 5:
             ciudad_origen = input("Ingrese la ciudad de origen: ")
@@ -204,11 +206,23 @@ def thread_cycle():
             millas = int(input("Cuantas millas posee: "))
 
             distancia_millas = millas * 1.6
+            hash_ae = cont["airport"]
+            mst = controller.MstPrim(graf_nodir, ciudad_org, hash_ae)
 
-            mst = controller.MstPrim(graf_dir, ciudad_org)
+            for e in lt.iterator(mst):
+                print(e)
 
         elif int(inputs[0]) == 7:
-            pass
+            
+            inicio = input("Cual es el IATA del aeropuerto fuera de funcionamiento: ")
+
+            conexiones = controller.SaberConectados(graf_dir, inicio)
+
+            for a in lt.iterator(conexiones):
+
+                print(a)
+
+            
 
         elif int(inputs[0]) == 8:
             pass
