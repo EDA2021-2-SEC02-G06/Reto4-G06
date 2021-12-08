@@ -184,18 +184,19 @@ def thread_cycle():
                 print("La ruta es: ")
                 for ruta in lt.iterator(camino):
 
-                    print("Air Salida: " + ruta["vertexA"] + "  --->  " + "Air Llegada: " + ruta["vertexB"] + "Distancia: " + ruta["weight"])
+                    print("Air Salida: " + ruta["vertexA"] + "  --->  " + "Air Llegada: " + ruta["vertexB"] + " Distancia: " + str(ruta["weight"]))
                     print("--------------------------------------------------------------------------------------")
                 print("")
                 print("********************************************")
                 print("")
                 print("La distancia total es: ")
-                hash_ciudad = cont["ciudades"]
+                hash_city = cont["ciudades"]
                 distancia_t = controller.DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero)
-
-
-
-
+                distancia_a = 0
+                for ruta in lt.iterator(camino):
+                    distancia_a += ruta["weight"]
+                distancia_fin = distancia_a + distancia_t
+                print("La distancia total de la ruta entre " + ciudad_origen + " y " + ciudad_destino + " es de: " + str(distancia_fin))
 
         elif int(inputs[0]) == 6:
             

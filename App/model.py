@@ -33,6 +33,8 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.ADT.graph import gr
 from DISClib.Utils import error
 from DISClib.Algorithms.Graphs import prim as pr 
+from DISClib.Algorithms.Graphs import bfs as bfs 
+import math as mt
 assert cf
 
 """
@@ -340,32 +342,48 @@ def EncontrarAeropuertoReg(destino_final, hash_aero):
 
 def DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final, hash_aero):
 
-    lat_co = origen_final["lat"]
-    long_co = origen_final["long"]
-    lat_cd =  destino_final["lat"]
-    long_cd =  destino_final["long"]
-
-    o = mp.get(hash_aero, origen_final["nom"])["value"]
+    lat_co = float(origen_final["lat"])
+    long_co = float(origen_final["long"])
+    lat_cd =  float(destino_final["lat"])
+    long_cd =  float(destino_final["long"])
+    
     
     lat_ao = 0
     long_ao = 0
     lat_ad =  0
     long_ad =  0
 
-    for e in lt.iterator(o):
+    lista_for = mp.keySet(hash_aero)
 
-        if e["IATA"] == aeropuerto_ida:
+    for element in lt.iterator(lista_for):
+                
+            o = mp.get(hash_aero, element)["value"]
+            for e in lt.iterator(o):
 
-            lat_ao = float(e["latitud"])
-            long_ao = float(e["longitud"])
-        
-        elif e["IATA"] == aeropuerto_reg:
+                if e["IATA"] == aeropuerto_reg:
+                    
+                    lat_ad = float(e["latitud"])
+                    long_ad = float(e["longitud"])
 
-            lat_ao = float(e["latitud"])
-            long_ao = float(e["longitud"])
+                elif e["IATA"] == aeropuerto_ida:
 
-    a = 0
+                    lat_ao = float(e["latitud"])
+                    long_ao = float(e["longitud"])
+
+    r = 6371
+    a = (mt.sin((lat_co - lat_ao)/2)**2 + mt.cos(lat_ao)*mt.cos(lat_co)*(mt.sin((long_co - long_ao)/2)**2))
+    c = 2*mt.atan2(mt.sqrt(a), mt.sqrt(1-a))
+    d = r*c
+
+    aa = (mt.sin((lat_cd - lat_ad)/2)**2 + mt.cos(lat_ad)*mt.cos(lat_cd)*(mt.sin((long_cd - long_ad)/2)**2))
+    cc = 2*mt.atan2(mt.sqrt(aa), mt.sqrt(1-aa))
+    dd = r*cc
+
+    dist = d + dd
+
+    return dist
 
 def MstPrim(graf_dir, ciudad_org):
 
-    pr.PrimMST
+    mst = pr.PrimMST(graf_dir)
+
