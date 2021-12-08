@@ -272,6 +272,119 @@ def compareStopIds(stop, keyvaluestop):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def CuantasConexionesTiene(graf_dir):
 
     lista_vert = gr.vertices(graf_dir)
@@ -279,7 +392,9 @@ def CuantasConexionesTiene(graf_dir):
 
     for elemento in lt.iterator(lista_vert):
 
-        num = gr.degree(graf_dir, elemento)
+        num1 = gr.outdegree(graf_dir, elemento)
+        num2 = gr.indegree(graf_dir, elemento)
+        num = num1 + num2
 
         dicit = {"aero": elemento, "conexiones": num}
 
@@ -414,14 +529,25 @@ def MstPrim(graf_nodir, ciudad_org, hash_ae):
     for element in lt.iterator(Ae):
         
         ly = element["IATA"]
-    print(ly)
-    mst = pr.PrimMST(graf_nodir)
+    
 
-    return mst
+    mst1 = pr.PrimMST(graf_nodir)
+    mst2 = pr.edgesMST(graf_nodir, mst1)
+
+    return mst2
 
 def SaberConectados(graf_dir, inicio):
 
-    dij = dj.Dijkstra(graf_dir, inicio)
+    lista_vertex = gr.vertices(graf_dir)
+
+
 
     return dij
 
+def CuantosAfectados(graf_dir, inicio):
+
+    num1 = gr.outdegree(graf_dir, inicio)
+    num2 = gr.indegree(graf_dir, inicio)
+    num = num1 + num2
+
+    return num

@@ -322,6 +322,91 @@ def loadServicesNoDir(cont, routesfile):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def CuantasConexionesTiene(graf_dir):
 
     return model.CuantasConexionesTiene(graf_dir)
@@ -351,4 +436,8 @@ def DistanciaHaverse(aeropuerto_ida, aeropuerto_reg, destino_final, origen_final
 def SaberConectados(graf_dir, inicio):
 
     return model.SaberConectados(graf_dir, inicio)
+
+def CuantosAfectados(graf_dir, inicio):
+
+    return model.CuantosAfectados(graf_dir, inicio)
 

@@ -135,6 +135,172 @@ def thread_cycle():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
         elif int(inputs[0]) == 5:
             ciudad_origen = input("Ingrese la ciudad de origen: ")
             ciudad_destino = input("Ingrese la ciudad de destino: ")
@@ -237,13 +403,17 @@ def thread_cycle():
             distancia_millas = millas * 1.6
             hash_ae = cont["airport"]
             mst = controller.MstPrim(graf_nodir, ciudad_org, hash_ae)
-
-            for e in lt.iterator(mst):
-                print(e)
+            print(mst)
+            #for e in lt.iterator(mst):
+               #print(e)
 
         elif int(inputs[0]) == 7:
             
             inicio = input("Cual es el IATA del aeropuerto fuera de funcionamiento: ")
+
+            cuantos = controller.CuantosAfectados(graf_dir, inicio)
+
+            print("El numero de aeropuertos afectados es: " + str(cuantos))
 
             conexiones = controller.SaberConectados(graf_dir, inicio)
 
