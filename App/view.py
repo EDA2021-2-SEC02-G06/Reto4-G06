@@ -21,6 +21,7 @@
  """
 
 #from DISClib.ADT.indexminpq import contains
+from DISClib.DataStructures.chaininghashtable import keySet
 import config as cf
 import sys
 import controller
@@ -86,16 +87,36 @@ def thread_cycle():
             print("Información del digrafo:")
             print("El numero de aeropuertos en el grafo dirigido es de: " + str(tamaño_dir))
             print("El numero total de rutas aereas son: " + str(gr.numEdges(graf_dir)))
-            print("primer aeropuerto cargado")
+            print("Primer aeropuerto cargado")
+            listo = mp.keySet(cont["Iata"])
+            pri = lt.firstElement(listo)
+            print(pri)
+            print("Ultimo aeropuerto cargado")
+            ilt = lt.lastElement(listo)
+            print(ilt)
             print("----------------------------------------------------------------")
             print("Información del grafo no dirigido:")
             print("El numero de aeropuertos en el grafo no dirigido es de: " + str(tamaño_nodir))
             print("El numero de rutas aereas son: " + str(gr.numEdges(graf_nodir)))
-            print("primer aeropuerto cargado")
+            print("Primer aeropuerto cargado")
+            listo = mp.keySet(cont["Iata"])
+            pri = lt.firstElement(listo)
+            print(pri)
+            print("Ultimo aeropuerto cargado")
+            ilt = lt.lastElement(listo)
+            print(ilt)
             print("-----------------------------------------------------------------")
             print("Información ciudades:")
-            print("total ciudades")
-            print("ultimaciudad")
+            tot_ci = mp.size(cont["ciudades"])
+            print("El total ciudades es: " + str(tot_ci))
+            lost = keySet(cont["ciudades"])
+            print("La primera ciudad es: ")
+            pris = lt.firstElement(lost)
+            print(pris)
+            print("La ultima ciudad es: ")
+            pos = lt.lastElement(lost)
+            print(pos)
+            
 
         
         elif int(inputs[0]) == 3:
@@ -150,174 +171,6 @@ def thread_cycle():
             StopTime = time.process_time()
             ElapsedTime = (StopTime - StartTime)*1000
             print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         elif int(inputs[0]) == 5:
