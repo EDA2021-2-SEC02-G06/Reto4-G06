@@ -56,6 +56,9 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
     input_file3 = csv.DictReader(open(airportfile, encoding = "utf-8"),
                                     delimiter=",")
     
+    input_file4 = csv.DictReader(open(airportfile, encoding = "utf-8"),
+                                    delimiter=",")
+    
     for airport in input_file3:
 
         if airport is not None and not(mp.contains(cont["airport"],airport["City"])):
@@ -83,7 +86,36 @@ def loadServicesDir(cont, routesfile,citiesfile, airportfile):
                         }
             lt.addLast(lista1, diccionario)
             mp.put(cont["airport"],airport["City"], lista1)
-    
+
+    for airport in input_file4:
+
+        if airport is not None and not(mp.contains(cont["Iata"],airport["IATA"])):
+
+            
+            diccionario = {"nombre":airport["City"],
+                            "ciudad":airport["City"],
+                            "pais":airport["Country"],
+                            "IATA":airport["IATA"],
+                            "latitud":airport["Latitude"],
+                            "longitud":airport["Longitude"],
+                        }
+          
+            mp.put(cont["Iata"],airport["IATA"], diccionario)
+            """
+        else:
+
+            a = mp.get(cont["Iata"],airport["IATA"])
+            lista1 = me.getValue(a)
+            diccionario = {"nombre":airport["Name"],
+                            "ciudad":airport["City"],
+                            "pais":airport["Country"],
+                            "IATA":airport["IATA"],
+                            "latitud":airport["Latitude"],
+                            "longitud":airport["Longitude"],
+                        }
+            lt.addLast(lista1, diccionario)
+            mp.put(cont["Iata"],airport["IATA"], lista1)
+    """
     for citie in file_cities:
 
         if citie is not None and not(mp.contains(cont["ciudades"], citie["city_ascii"])):
@@ -441,3 +473,6 @@ def CuantosAfectados(graf_dir, inicio):
 
     return model.CuantosAfectados(graf_dir, inicio)
 
+def RecorridoReq4(lista_recorrido, graf_dir):
+
+    return model.RecorridoReq4(lista_recorrido, graf_dir)
