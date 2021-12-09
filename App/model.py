@@ -23,6 +23,8 @@
  *
  * Dario Correal - Version inicial
  """
+from DISClib.Algorithms.Graphs import dfs as df 
+from DISClib.Algorithms.Graphs import dijsktra as dj
 
 
 import config as cf
@@ -36,7 +38,7 @@ from DISClib.Algorithms.Graphs import prim as pr
 from DISClib.Algorithms.Graphs import bfs as bf 
 from DISClib.Algorithms.Sorting import mergesort as ms
 from DISClib.Algorithms.Graphs import scc as scc
-from DISClib.Algorithms.Graphs import dijsktra as dj
+#from DISClib.Algorithms.Graphs import dijsktra as dj
 import math as mt
 assert cf
 
@@ -74,6 +76,8 @@ def newAnalyzer():
         analyzer["ciudades"] = mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
 
         analyzer["airport"] = mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
+
+        analyzer["Iata"] =  mp.newMap(41120,maptype="Probing",loadfactor=0.8,comparefunction=None)
         return analyzer
     
     except Exception as exp:
@@ -543,15 +547,17 @@ def MstPrim(graf_nodir, ciudad_org, hash_ae):
     mst1 = pr.PrimMST(graf_nodir)
     mst2 = pr.edgesMST(graf_nodir, mst1)
 
-    return mst2
+    defs = df.DepthFirstSearch(graf_nodir, ly)
+    #difs = df.dfsVertex(defs, graf_nodir, ly)
+    
+
+    return defs
 
 def SaberConectados(graf_dir, inicio):
 
-    lista_vertex = gr.vertices(graf_dir)
+    lista_vertex = gr.adjacents(graf_dir, inicio)
 
-
-
-    return dij
+    return lista_vertex
 
 def CuantosAfectados(graf_dir, inicio):
 
@@ -560,3 +566,16 @@ def CuantosAfectados(graf_dir, inicio):
     num = num1 + num2
 
     return num
+
+def RecorridoReq4(lista_recorrido, graf_dir):
+
+
+    listas = lt.newList("ARRAY_LIST")
+    for lis in lt.iterator(lista_recorrido):
+
+        ies = gr.getEdge(graf_dir, lis["vertexA"], lis["vertexB"])
+        
+        if ies != None:
+            lt.addLast(listas, ies)
+    
+    return listas

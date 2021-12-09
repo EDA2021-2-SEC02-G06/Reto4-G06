@@ -316,7 +316,7 @@ def thread_cycle():
 
 
 
-            
+
 
 
 
@@ -422,23 +422,106 @@ def thread_cycle():
             distancia_millas = millas * 1.6
             hash_ae = cont["airport"]
             mst = controller.MstPrim(graf_nodir, ciudad_org, hash_ae)
-            print(mst)
-            #for e in lt.iterator(mst):
-               #print(e)
+            
+            lista = mst["visited"]["table"]["elements"]
+            num = len(lista)
+            
+            lista_recorrido = lt.newList("ARRAY_LIST")
+            for el in lista:
+
+                if el["key"] != None and el["value"]["edgeTo"] != None:
+
+                    dicd = {"vertexA": el["value"]["edgeTo"], "vertexB": el["key"]}
+                    lt.addLast(lista_recorrido, dicd)
+
+            recorrido = controller.RecorridoReq4(lista_recorrido, graf_dir)
+
+            nn = 0
+            for el in lista:
+
+                if el["key"] != None:
+
+                    nn += 1                
+
+            dist_tot = 0
+
+            for eli in lt.iterator(recorrido):
+
+                dist_tot += eli["weight"]
+            
+            print("La cantidad de nodos conectados: " + str(nn))
+            print("")
+            print("La distancia total del recorrido es de: " + str(dist_tot))
+            print("")
+            print("El recorrido más largo posible: ")
+            print("")
+
+            for eli in lt.iterator(recorrido):
+
+                print("From: " + eli["vertexA"] + "  ----->  " + " To " + eli["vertexB"] + " Distance: " + " " + str(eli["weight"]))
+                print("--------------------------------------------------------------------------------------")
+            
+            millas_nec = dist_tot/1.6
+            print("")
+            print("Las millas necesarias para el viaje son: " + str(millas_nec))
+
+            millas_dif = dist_tot - distancia_millas
+            if millas_dif > 0:
+                print("Faltan recorrer " + str(millas_dif) + " km lo que equivale a " + str(millas_dif/1.6) + " millas faltantes")
+            else:
+                print("Se cumple la cuota de millas y sobran " + str(millas - millas_nec) + " millas")
+
 
         elif int(inputs[0]) == 7:
             
             inicio = input("Cual es el IATA del aeropuerto fuera de funcionamiento: ")
 
-            cuantos = controller.CuantosAfectados(graf_dir, inicio)
-
-            print("El numero de aeropuertos afectados es: " + str(cuantos))
+            #cuantos = controller.CuantosAfectados(graf_dir, inicio)
 
             conexiones = controller.SaberConectados(graf_dir, inicio)
 
-            for a in lt.iterator(conexiones):
+            cuantos = lt.size(conexiones)
 
-                print(a)
+            print("El numero de aeropuertos afectados es: " + str(cuantos))
+
+            hash_aae = cont["Iata"]
+            print("")
+            print("Los primeros 3 aeropuertos afectados son: ")
+            print("")
+            
+            g = 0
+            for con in lt.iterator(conexiones):
+      
+                valo = mp.get(hash_aae, con)["value"]
+                
+                if g < 3:
+
+                    print(valo["nombre"] + "  " + valo["IATA"] + "  " + valo["ciudad"] + "  " + valo["pais"])
+                    print("-------------------------------------------------------------------------------")
+                
+                g += 1
+            
+            print("")
+            print("Los ultimos 3 aeropuertos afectados son: ")
+            print("")
+
+            g = lt.size(conexiones) - 3
+            k = 0
+            for con in lt.iterator(conexiones):
+                
+                valo = mp.get(hash_aae, con)["value"]
+                k += 1
+                if k > g:
+
+                    print(valo["nombre"] + "  " + valo["IATA"] + "  " + valo["ciudad"] + "  " + valo["pais"])
+                    print("-------------------------------------------------------------------------------")
+                
+                g += 1
+                k += 1
+            
+            print(conexiones)
+                 
+                                
 
             
 
