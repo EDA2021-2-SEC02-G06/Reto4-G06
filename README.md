@@ -1,5 +1,9 @@
 #ISIS1225 - Librerias de soporte
 
+Nicolas Yesid Rivera Lesmes ny.rivera@uniandes.edu.co 2021166756  
+
+Santiago Gustavo Ayala Ciendua s.ayalac@unaindes.edu.co 202110734  
+
 Este proyecto contiene los Tipos abstractos de datos, estructuras de datos y algoritmos requeridos por el curso ISIS1225-Estructuras de Datos y Algoritmos
 
 -Lib
