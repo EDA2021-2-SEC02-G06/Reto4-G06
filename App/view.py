@@ -324,7 +324,7 @@ def thread_cycle():
             ciudad_origen = input("Ingrese la ciudad de origen: ")
             ciudad_destino = input("Ingrese la ciudad de destino: ")
 
-            
+            StartTime = time.process_time()
             ciudades = cont["ciudades"]
             valor_ciudad_origen = None
 
@@ -413,11 +413,16 @@ def thread_cycle():
                     distancia_a += ruta["weight"]
                 distancia_fin = distancia_a + distancia_t
                 print("La distancia total de la ruta entre " + ciudad_origen + " y " + ciudad_destino + " es de: " + str(distancia_fin))
+            StopTime = time.process_time()
+            ElapsedTime = (StopTime - StartTime)*1000
+            print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
         elif int(inputs[0]) == 6:
             
             ciudad_org = input("Cual es la ciudad de origen: ")
             millas = int(input("Cuantas millas posee: "))
+
+            StartTime = time.process_time()
 
             distancia_millas = millas * 1.6
             hash_ae = cont["airport"]
@@ -470,13 +475,18 @@ def thread_cycle():
                 print("Faltan recorrer " + str(millas_dif) + " km lo que equivale a " + str(millas_dif/1.6) + " millas faltantes")
             else:
                 print("Se cumple la cuota de millas y sobran " + str(millas - millas_nec) + " millas")
-
+            
+            StopTime = time.process_time()
+            ElapsedTime = (StopTime - StartTime)*1000
+            print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
         elif int(inputs[0]) == 7:
             
             inicio = input("Cual es el IATA del aeropuerto fuera de funcionamiento: ")
 
             #cuantos = controller.CuantosAfectados(graf_dir, inicio)
+
+            StartTime = time.process_time()
 
             conexiones = controller.SaberConectados(graf_dir, inicio)
 
@@ -520,11 +530,14 @@ def thread_cycle():
                 k += 1
             
             print(conexiones)
+
+            StopTime = time.process_time()
+            ElapsedTime = (StopTime - StartTime)*1000
+            print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
                  
                                 
 
             
-
         elif int(inputs[0]) == 8:
             pass
 
