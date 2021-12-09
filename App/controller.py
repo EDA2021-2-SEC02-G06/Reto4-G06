@@ -476,3 +476,7 @@ def CuantosAfectados(graf_dir, inicio):
 def RecorridoReq4(lista_recorrido, graf_dir):
 
     return model.RecorridoReq4(lista_recorrido, graf_dir)
+    
+def req2(analyzer,cod1,cod2):
+
+    return model.req2(analyzer,cod1,cod2)
