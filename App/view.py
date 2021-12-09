@@ -32,7 +32,7 @@ from DISClib.ADT import stack
 from DISClib.ADT.graph import gr
 from DISClib.ADT import map as mp
 from geopy import distance 
-
+import time
 
 """
 La vista se encarga de la interacción con el usuario
@@ -107,6 +107,7 @@ def thread_cycle():
             print("Los 5 aeropuertos más interconectados son:")
             print("")
 
+            StartTime = time.process_time()
             m = 0
             lista_ha = mp.keySet(hash_air)
             for ele in lt.iterator(conectados):
@@ -128,22 +129,27 @@ def thread_cycle():
                                 print("---------------------------------------------------------------------------------")
 
                                 m += 1
+            StopTime = time.process_time()
+            ElapsedTime = (StopTime - StartTime)*1000
+            print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
         elif int(inputs[0]) == 4:
             cod1 = input("Ingrese el IATA 1: ")
             cod2 = input("ingrese el IATA 2: ")
 
+            StartTime = time.process_time()
             componentes,conected = controller.req2(cont,cod1,cod2)
-
             print(componentes)
             print(conected)
             print("========== REQ 2 ==========")
             print("Aeropuerto 1 código IATA: " + cod1)
             print("Aeropuerto 2 código IATA: " + cod2)
-
             print("El número de componentes conectados en la ruta de aeropuertos es de: " + componentes)
             print("¿Pertenecen al mismo componente los aeropuertos?")
             print("Respuesta: " + conected)
+            StopTime = time.process_time()
+            ElapsedTime = (StopTime - StartTime)*1000
+            print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
 
 
