@@ -167,7 +167,7 @@ def thread_cycle():
             print("Aeropuerto 2 código IATA: " + cod2)
             print("El número de componentes conectados en la ruta de aeropuertos es de: " + componentes)
             print("¿Pertenecen al mismo componente los aeropuertos?")
-            print("Respuesta: " + conected)
+            print("Respuesta: " + str(conected))
             StopTime = time.process_time()
             ElapsedTime = (StopTime - StartTime)*1000
             print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
