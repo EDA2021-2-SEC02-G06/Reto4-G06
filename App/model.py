@@ -338,8 +338,8 @@ def MstPrim(graf_nodir, ciudad_org, hash_ae):
         ly = element["IATA"]
     
 
-    #mst1 = pr.PrimMST(graf_nodir)
-    #mst2 = pr.edgesMST(graf_nodir, mst1)
+    mst1 = pr.PrimMST(graf_nodir)
+    mst2 = pr.edgesMST(graf_nodir, mst1)
 
     defs = df.DepthFirstSearch(graf_nodir, ly)
     #difs = df.dfsVertex(defs, graf_nodir, ly)
