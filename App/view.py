@@ -133,6 +133,19 @@ def thread_cycle():
             cod1 = input("Ingrese el IATA 1: ")
             cod2 = input("ingrese el IATA 2: ")
 
+            componentes,conected = controller.req2(cont,cod1,cod2)
+
+            print(componentes)
+            print(conected)
+            print("========== REQ 2 ==========")
+            print("Aeropuerto 1 código IATA: " + cod1)
+            print("Aeropuerto 2 código IATA: " + cod2)
+
+            print("El número de componentes conectados en la ruta de aeropuertos es de: " + componentes)
+            print("¿Pertenecen al mismo componente los aeropuertos?")
+            print("Respuesta: " + conected)
+
+
 
 
 

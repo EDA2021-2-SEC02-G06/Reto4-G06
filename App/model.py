@@ -24,7 +24,7 @@
  * Dario Correal - Version inicial
  """
 
-from DISClib.Algorithms.Graphs import dijsktra as dj
+
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -35,6 +35,8 @@ from DISClib.Utils import error
 from DISClib.Algorithms.Graphs import prim as pr 
 from DISClib.Algorithms.Graphs import bfs as bf 
 from DISClib.Algorithms.Sorting import mergesort as ms
+from DISClib.Algorithms.Graphs import scc as scc
+from DISClib.Algorithms.Graphs import dijsktra as dj
 import math as mt
 assert cf
 
@@ -52,7 +54,8 @@ def newAnalyzer():
         analyzer = {
                     "paradas": None,
                     "conexiones": None,
-                    "conexiones_nodir": None
+                    "conexiones_nodir": None,
+                    "com_graph_directed":None
                     }
         
         analyzer["paradas"] = mp.newMap(numelements = 14000,
@@ -177,7 +180,13 @@ def compareStopIds(stop, keyvaluestop):
 
 
 
+def req2 (analyzer,codigo1,codigo2):
 
+    analyzer["com_graph_directed"] = scc.KosarajuSCC(analyzer["conexiones_dir"])
+    conected = scc.stronglyConnected(analyzer["com_graph_directed"],codigo1,codigo2)
+    num_compo = scc.connectedComponents(analyzer["com_graph_directed"])
+    
+    return num_compo,conected
 
 
 

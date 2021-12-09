@@ -441,3 +441,6 @@ def CuantosAfectados(graf_dir, inicio):
 
     return model.CuantosAfectados(graf_dir, inicio)
 
+def req2(analyzer,cod1,cod2):
+
+    return model.req2(analyzer,cod1,cod2)
