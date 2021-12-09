@@ -21,7 +21,7 @@
  """
 
 #from DISClib.ADT.indexminpq import contains
-from DISClib.DataStructures.chaininghashtable import keySet
+
 import config as cf
 import sys
 import controller
@@ -56,8 +56,8 @@ def printMenu():
     print("8- REQ6 (Bono): Comparar con servicio WEB externo")
     print("0- Fin del programa")
 
-airportfile = "airports-utf8-small.csv"
-routesfile = "routes-utf8-small.csv"
+airportfile = "airports-utf8-large.csv"
+routesfile = "routes-utf8-large.csv"
 citiesfile = "worldcities-utf8.csv"
 initial = None
 
@@ -90,10 +90,10 @@ def thread_cycle():
             print("Primer aeropuerto cargado")
             listo = mp.keySet(cont["Iata"])
             pri = lt.firstElement(listo)
-            print(pri)
+            print(mp.get(cont["Iata"], pri)["value"])
             print("Ultimo aeropuerto cargado")
             ilt = lt.lastElement(listo)
-            print(ilt)
+            print(mp.get(cont["Iata"], ilt)["value"])
             print("----------------------------------------------------------------")
             print("Información del grafo no dirigido:")
             print("El numero de aeropuertos en el grafo no dirigido es de: " + str(tamaño_nodir))
@@ -101,22 +101,22 @@ def thread_cycle():
             print("Primer aeropuerto cargado")
             listo = mp.keySet(cont["Iata"])
             pri = lt.firstElement(listo)
-            print(pri)
+            print(mp.get(cont["Iata"], pri)["value"])
             print("Ultimo aeropuerto cargado")
             ilt = lt.lastElement(listo)
-            print(ilt)
+            print(mp.get(cont["Iata"], ilt)["value"])
             print("-----------------------------------------------------------------")
             print("Información ciudades:")
             tot_ci = mp.size(cont["ciudades"])
-            print("El total ciudades es: " + str(tot_ci))
-            lost = keySet(cont["ciudades"])
+            print("El total ciudades unicas (nombre) es: " + str(tot_ci))
+            lost = mp.keySet(cont["ciudades"])
             print("La primera ciudad es: ")
             pris = lt.firstElement(lost)
-            print(pris)
+            print(mp.get(cont["ciudades"], pris)["value"])
             print("La ultima ciudad es: ")
             pos = lt.lastElement(lost)
-            print(pos)
-            
+            print(mp.get(cont["ciudades"], pos)["value"])
+
 
         
         elif int(inputs[0]) == 3:
@@ -165,7 +165,7 @@ def thread_cycle():
             print("========== REQ 2 ==========")
             print("Aeropuerto 1 código IATA: " + cod1)
             print("Aeropuerto 2 código IATA: " + cod2)
-            print("El número de componentes conectados en la ruta de aeropuertos es de: " + componentes)
+            print("El número de componentes conectados en la ruta de aeropuertos es de: " + str(componentes))
             print("¿Pertenecen al mismo componente los aeropuertos?")
             print("Respuesta: " + str(conected))
             StopTime = time.process_time()
@@ -382,7 +382,7 @@ def thread_cycle():
                 g += 1
                 k += 1
             
-            print(conexiones)
+            #print(conexiones)
 
             StopTime = time.process_time()
             ElapsedTime = (StopTime - StartTime)*1000
